@@ -14,24 +14,45 @@ final class TransverseSearcherRemoteDataManager {
 
 extension TransverseSearcherRemoteDataManager: TransverseSearcherRemoteDataInputProtocol {
     
-    
-    
-    func requestFromSearchBar(_ text: String, handler: @escaping (Result<PokemonList, Error>) -> Void) {
+    func requestFromSearchBar(_ text: String, handler: @escaping (Result<PokemonBlock, Error>) -> Void) {
         let service: ServiceAPI = ServiceAPI(session: URLSession.shared)
-        service.get(Endpoint.next(urlString: Endpoint.baseURL)) { data, error in
-            
-            guard let data: Data = data else {
-                if let serviceError: Error = error {
-                    handler(.failure(serviceError))
-                }
-                return
+        service.get(Endpoint.next(urlString: Endpoint.baseURL)) { [weak self] (result: Result<Data, Error>) in
+            switch result {
+            case .success(let data):
+                self?.decodePokemonList(data: data, handler: handler)
+            case .failure(let error):
+                handler(.failure(error))
             }
-            do {
-                let pokemonList = try JSONDecoder().decode(PokemonList.self, from: data)
-                handler(.success(pokemonList))
-            } catch {
-                handler(.failure(ServiceError.parsingData))
+        }
+    }
+    
+    func requestPokemon(id: String, handler: @escaping (Result<PokemonResult, Error>) -> Void) {
+        let service: ServiceAPI = ServiceAPI(session: URLSession.shared)
+        service.get(Endpoint.pokemon(nameOrId: id)) { [weak self] (result: Result<Data, Error>) in
+            switch result {
+            case .success(let data):
+                self?.decodePokemon(data: data, handler: handler)
+            case .failure(let error):
+                print("error", error)
             }
+        }
+    }
+ 
+    private func decodePokemonList(data: Data, handler: (Result<PokemonBlock, Error>) -> Void) {
+        do {
+            let pokemonList: PokemonBlock = try JSONDecoder().decode(PokemonBlock.self, from: data)
+            handler(.success(pokemonList))
+        } catch {
+            handler(.failure(ServiceError.parsingData))
+        }
+    }
+    
+    private func decodePokemon(data: Data, handler: (Result<PokemonResult, Error>) -> Void) {
+        do {
+            let pokemon: PokemonResult = try JSONDecoder().decode(PokemonResult.self, from: data)
+            handler(.success(pokemon))
+        } catch {
+            handler(.failure(ServiceError.parsingData))
         }
     }
     

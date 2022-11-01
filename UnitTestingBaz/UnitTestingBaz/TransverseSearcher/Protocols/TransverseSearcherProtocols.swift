@@ -53,7 +53,8 @@ protocol TransverseSearcherInteractorOutputProtocol: AnyObject {
 // Interactor > RemoteData
 protocol TransverseSearcherRemoteDataInputProtocol {
     var interactor: TransverseSearcherRemoteDataOutputProtocol? { get set }
-    func requestFromSearchBar(_ text: String, handler: @escaping (Result<PokemonList, Error>) -> Void)
+    func requestFromSearchBar(_ text: String, handler: @escaping (Result<PokemonBlock, Error>) -> Void)
+    func requestPokemon(id: String, handler: @escaping (Result<PokemonResult, Error>) -> Void)
 }
 
 // RemoteData > Interactor

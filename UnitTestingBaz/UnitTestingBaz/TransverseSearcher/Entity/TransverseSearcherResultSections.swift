@@ -71,7 +71,7 @@ struct TransverseSearcherTableSection {
 
 // MARK: - Pokeomon List
 
-struct PokemonList: Codable {
+struct PokemonBlock: Decodable {
     let count: Int?
     let next: String?
     let previous: String?
@@ -80,9 +80,22 @@ struct PokemonList: Codable {
 
 // MARK: - Pokemon Result
 
-struct PokemonResult: Codable {
+struct PokemonResult: Decodable {
     let name: String?
+    let sprites: PokemonSprite?
     let url: String?
+}
+
+struct PokemonSprite: Decodable {
+    let frontDefault: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case frontDefault = "front_default"
+    }
+}
+
+struct Pokemon {
+    let name: String
 }
 
 struct GetTransverseSearchResponse: Decodable {

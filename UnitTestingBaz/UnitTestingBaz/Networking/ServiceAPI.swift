@@ -37,68 +37,34 @@ class ServiceAPI {
         self.session = session
     }
     
-    func get(_ endpoint: Endpoint, callback: @escaping (_ data: Data?, _ error: Error?) -> Void) {
+    func get(_ endpoint: Endpoint, callback: @escaping (Result<Data,Error>) -> Void) {
         let request = endpoint.request
         let task = session.performDataTask(with: request) { (data, response, error) in
             if let error: Error = error {
                 debugPrint("error", error)
-                callback(nil, error)
+                callback(.failure(error))
                 return
             }
             
             guard let data: Data = data else {
-                callback(nil, ServiceError.response)
-              return
+                callback(.failure(ServiceError.response))
+                return
             }
             
             guard let response: HTTPURLResponse = response as? HTTPURLResponse else {
-              callback(nil, ServiceError.response)
-              return
+                callback(.failure(ServiceError.response))
+                return
             }
             
             guard (200 ... 299) ~= response.statusCode else {
-              print("statusCode should be 2xx, but is \(response.statusCode)")
-              print("response = \(response)")
-              callback(nil, ServiceError.internalServer)
-              return
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                callback(.failure(ServiceError.internalServer))
+                return
             }
             
-            callback(data, error)
-            
-//            do {
-//              let postTweet = try JSONDecoder().decode(PokemonList.self, from: data)
-//                callback(data, nil)
-//            } catch {
-//              callback(nil, ServiceError.parsingData)
-//            }
+            callback(.success(data))
         }
         task.resume()
-    }
-    
-    //    func load(_ endpoint: Endpoint, completion: @escaping (Result<[Movies], Error>) -> ()) {
-    //
-    //        let request = endpoint.request
-    //        session.dataTask(with: request) { data, response, error in
-    //
-    //            if let error = error {
-    //                completion(.failure(error))
-    //                return
-    //            }
-    //
-    //            guard let data = data else {
-    //                completion(.failure(TweetAPIError.noData))
-    //                return
-    //            }
-    //
-    //            do {
-    //                let timeline = try JSONDecoder().decode([Tweet].self, from: data)
-    //                completion(.success(timeline))
-    //
-    //            } catch {
-    //                completion(.failure(TweetAPIError.parsingData))
-    //            }
-    //
-    //        }.resume()
-    //    }
-    
+    }    
 }

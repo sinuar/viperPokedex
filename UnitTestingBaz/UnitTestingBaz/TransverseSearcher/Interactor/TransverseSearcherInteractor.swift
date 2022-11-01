@@ -11,19 +11,37 @@ final class TransverseSearcherInteractor {
     // MARK: - Protocol properties
     weak var presenter: TransverseSearcherInteractorOutputProtocol?
     var remoteData: TransverseSearcherRemoteDataInputProtocol?
+    var pokemonList: [Pokemon] = []
 }
 
 extension TransverseSearcherInteractor: TransverseSearcherInteractorInputProtocol {
     func search(_ text: String) {
         // TODO: Launch remote
-        remoteData?.requestFromSearchBar(text, handler: { [weak self] response in
-            switch response {
-            case .success(let pokemonList):
-                print(pokemonList)
+        remoteData?.requestFromSearchBar(text, handler: { [weak self] (result: (Result<PokemonBlock, Error>)) in
+            switch result {
+            case .success(let pokemonBlock):
+                pokemonBlock.results?.forEach({ (pokemon: PokemonResult) in
+                    guard let name: String = pokemon.name else { return }
+                    self?.remoteData?.requestPokemon(id: name, handler: { (pokemonDetailResult: Result<PokemonResult, Error>) in
+                        switch pokemonDetailResult {
+                        case .success(let pokemonDetail):
+                            self?.fillPokemonList(with: pokemonDetail)
+                        case .failure(let error):
+                            print("error", error)
+                        }
+                    })
+                })
+                
             case .failure(let error):
                 print(error)
             }
         })
+        
+        print(pokemonList)
+    }
+    
+    private func fillPokemonList(with pokemonDetail: PokemonResult) {
+        pokemonList.append(Pokemon(name: pokemonDetail.name ?? ""))
     }
     
     private func getProductType(with program: String) -> ProductType {
