@@ -7,23 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90356D28291059BF0013CDEA /* TranverseSearcherConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90356D27291059BF0013CDEA /* TranverseSearcherConstants.swift */; };
+		90356D2A29105AFA0013CDEA /* TransverseSearcherResultSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90356D2929105AFA0013CDEA /* TransverseSearcherResultSections.swift */; };
+		90356D2C29105B430013CDEA /* ProductCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90356D2B29105B430013CDEA /* ProductCategories.swift */; };
+		90356D2F291068550013CDEA /* SuggestedFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90356D2E291068550013CDEA /* SuggestedFieldCell.swift */; };
+		90356D3129106BA00013CDEA /* TransverseSearcherSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90356D3029106BA00013CDEA /* TransverseSearcherSectionHeaderView.swift */; };
+		9056F0692910A107000C98C2 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9056F0682910A107000C98C2 /* Endpoint.swift */; };
+		9056F06B2910AA5F000C98C2 /* ServiceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9056F06A2910AA5F000C98C2 /* ServiceAPI.swift */; };
 		906764C6291026310027D4B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906764C5291026310027D4B1 /* AppDelegate.swift */; };
 		906764C8291026310027D4B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906764C7291026310027D4B1 /* SceneDelegate.swift */; };
 		906764CA291026310027D4B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906764C9291026310027D4B1 /* ViewController.swift */; };
-		906764CD291026310027D4B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906764CB291026310027D4B1 /* Main.storyboard */; };
 		906764CF291026330027D4B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 906764CE291026330027D4B1 /* Assets.xcassets */; };
 		906764D2291026330027D4B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 906764D0291026330027D4B1 /* LaunchScreen.storyboard */; };
+		906764E2291028E60027D4B1 /* TransverseSearcherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906764E1291028E60027D4B1 /* TransverseSearcherProtocols.swift */; };
+		906764E4291028F70027D4B1 /* TransverseSearcherRemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906764E3291028F70027D4B1 /* TransverseSearcherRemoteDataManager.swift */; };
+		906764E6291029020027D4B1 /* TransverseSearcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906764E5291029020027D4B1 /* TransverseSearcherViewController.swift */; };
+		906764E82910290B0027D4B1 /* TransverseSearcherInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906764E72910290B0027D4B1 /* TransverseSearcherInteractor.swift */; };
+		906764EA291029150027D4B1 /* TransverseSearcherPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906764E9291029150027D4B1 /* TransverseSearcherPresenter.swift */; };
+		906764EC291029200027D4B1 /* TransverseSearcherRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906764EB291029200027D4B1 /* TransverseSearcherRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		90356D27291059BF0013CDEA /* TranverseSearcherConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranverseSearcherConstants.swift; sourceTree = "<group>"; };
+		90356D2929105AFA0013CDEA /* TransverseSearcherResultSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseSearcherResultSections.swift; sourceTree = "<group>"; };
+		90356D2B29105B430013CDEA /* ProductCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategories.swift; sourceTree = "<group>"; };
+		90356D2E291068550013CDEA /* SuggestedFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedFieldCell.swift; sourceTree = "<group>"; };
+		90356D3029106BA00013CDEA /* TransverseSearcherSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseSearcherSectionHeaderView.swift; sourceTree = "<group>"; };
+		9056F0682910A107000C98C2 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		9056F06A2910AA5F000C98C2 /* ServiceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAPI.swift; sourceTree = "<group>"; };
 		906764C2291026310027D4B1 /* UnitTestingBaz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UnitTestingBaz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		906764C5291026310027D4B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		906764C7291026310027D4B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		906764C9291026310027D4B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		906764CC291026310027D4B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		906764CE291026330027D4B1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		906764D1291026330027D4B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		906764D3291026330027D4B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		906764E1291028E60027D4B1 /* TransverseSearcherProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseSearcherProtocols.swift; sourceTree = "<group>"; };
+		906764E3291028F70027D4B1 /* TransverseSearcherRemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseSearcherRemoteDataManager.swift; sourceTree = "<group>"; };
+		906764E5291029020027D4B1 /* TransverseSearcherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseSearcherViewController.swift; sourceTree = "<group>"; };
+		906764E72910290B0027D4B1 /* TransverseSearcherInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseSearcherInteractor.swift; sourceTree = "<group>"; };
+		906764E9291029150027D4B1 /* TransverseSearcherPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseSearcherPresenter.swift; sourceTree = "<group>"; };
+		906764EB291029200027D4B1 /* TransverseSearcherRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseSearcherRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +61,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		90356D2D291068490013CDEA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				90356D2E291068550013CDEA /* SuggestedFieldCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		9056F0672910A0FE000C98C2 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				9056F0682910A107000C98C2 /* Endpoint.swift */,
+				9056F06A2910AA5F000C98C2 /* ServiceAPI.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		906764B9291026310027D4B1 = {
 			isa = PBXGroup;
 			children = (
@@ -56,15 +97,90 @@
 		906764C4291026310027D4B1 /* UnitTestingBaz */ = {
 			isa = PBXGroup;
 			children = (
+				9056F0672910A0FE000C98C2 /* Networking */,
+				906764D9291028980027D4B1 /* TransverseSearcher */,
 				906764C5291026310027D4B1 /* AppDelegate.swift */,
 				906764C7291026310027D4B1 /* SceneDelegate.swift */,
 				906764C9291026310027D4B1 /* ViewController.swift */,
-				906764CB291026310027D4B1 /* Main.storyboard */,
 				906764CE291026330027D4B1 /* Assets.xcassets */,
 				906764D0291026330027D4B1 /* LaunchScreen.storyboard */,
 				906764D3291026330027D4B1 /* Info.plist */,
 			);
 			path = UnitTestingBaz;
+			sourceTree = "<group>";
+		};
+		906764D9291028980027D4B1 /* TransverseSearcher */ = {
+			isa = PBXGroup;
+			children = (
+				906764E0291028CA0027D4B1 /* Protocols */,
+				906764DF291028C40027D4B1 /* DataManager */,
+				906764DE291028C00027D4B1 /* View */,
+				906764DD291028BC0027D4B1 /* Interactor */,
+				906764DC291028B40027D4B1 /* Presenter */,
+				906764DB291028AF0027D4B1 /* Entity */,
+				906764DA291028AB0027D4B1 /* Router */,
+			);
+			path = TransverseSearcher;
+			sourceTree = "<group>";
+		};
+		906764DA291028AB0027D4B1 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				906764EB291029200027D4B1 /* TransverseSearcherRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		906764DB291028AF0027D4B1 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				90356D27291059BF0013CDEA /* TranverseSearcherConstants.swift */,
+				90356D2929105AFA0013CDEA /* TransverseSearcherResultSections.swift */,
+				90356D2B29105B430013CDEA /* ProductCategories.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		906764DC291028B40027D4B1 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				906764E9291029150027D4B1 /* TransverseSearcherPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		906764DD291028BC0027D4B1 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				906764E72910290B0027D4B1 /* TransverseSearcherInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		906764DE291028C00027D4B1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				90356D2D291068490013CDEA /* Cells */,
+				906764E5291029020027D4B1 /* TransverseSearcherViewController.swift */,
+				90356D3029106BA00013CDEA /* TransverseSearcherSectionHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		906764DF291028C40027D4B1 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				906764E3291028F70027D4B1 /* TransverseSearcherRemoteDataManager.swift */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
+		906764E0291028CA0027D4B1 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				906764E1291028E60027D4B1 /* TransverseSearcherProtocols.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +243,6 @@
 			files = (
 				906764D2291026330027D4B1 /* LaunchScreen.storyboard in Resources */,
 				906764CF291026330027D4B1 /* Assets.xcassets in Resources */,
-				906764CD291026310027D4B1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +253,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				906764E82910290B0027D4B1 /* TransverseSearcherInteractor.swift in Sources */,
 				906764CA291026310027D4B1 /* ViewController.swift in Sources */,
+				90356D2A29105AFA0013CDEA /* TransverseSearcherResultSections.swift in Sources */,
+				906764EA291029150027D4B1 /* TransverseSearcherPresenter.swift in Sources */,
+				9056F0692910A107000C98C2 /* Endpoint.swift in Sources */,
+				906764E2291028E60027D4B1 /* TransverseSearcherProtocols.swift in Sources */,
+				9056F06B2910AA5F000C98C2 /* ServiceAPI.swift in Sources */,
+				90356D3129106BA00013CDEA /* TransverseSearcherSectionHeaderView.swift in Sources */,
+				90356D2C29105B430013CDEA /* ProductCategories.swift in Sources */,
 				906764C6291026310027D4B1 /* AppDelegate.swift in Sources */,
 				906764C8291026310027D4B1 /* SceneDelegate.swift in Sources */,
+				906764E6291029020027D4B1 /* TransverseSearcherViewController.swift in Sources */,
+				90356D2F291068550013CDEA /* SuggestedFieldCell.swift in Sources */,
+				906764EC291029200027D4B1 /* TransverseSearcherRouter.swift in Sources */,
+				90356D28291059BF0013CDEA /* TranverseSearcherConstants.swift in Sources */,
+				906764E4291028F70027D4B1 /* TransverseSearcherRemoteDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		906764CB291026310027D4B1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				906764CC291026310027D4B1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		906764D0291026330027D4B1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -294,7 +414,6 @@
 				INFOPLIST_FILE = UnitTestingBaz/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -322,7 +441,6 @@
 				INFOPLIST_FILE = UnitTestingBaz/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
