@@ -1,5 +1,5 @@
 //
-//  TranverseSearcherConstants.swift
+//  PokedexMainConstants.swift
 //  UnitTestingBaz
 //
 //  Created by Heber Raziel Alvarez Ruedas on 31/10/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum TransverseSearcherConstants {
+enum PokedexMainConstants {
     
     static let closeButtonIcon: UIImage = UIImage()
     static let purplueBarColor: UIColor = .lightGray
@@ -55,7 +55,7 @@ enum TransverseSearcherConstants {
     static let searchIconSize: CGFloat = 24.0
     
     static func getClearIcon() -> UIImage {
-        let clearIcon: UIImage = TransverseSearcherConstants.closeButtonIcon.withRenderingMode(.alwaysTemplate)
+        let clearIcon: UIImage = PokedexMainConstants.closeButtonIcon.withRenderingMode(.alwaysTemplate)
         clearIcon.accessibilityIdentifier = "clearIcon"
         return clearIcon
     }

@@ -1,5 +1,5 @@
 //
-//  TransverseSearcherResultSections.swift
+//  PokedexMainEntity.swift
 //  UnitTestingBaz
 //
 //  Created by Heber Raziel Alvarez Ruedas on 31/10/22.
@@ -27,41 +27,14 @@ struct SuggestedFieldCellModel: CustomCellViewData {
     let icon: UIImage
 }
 
-struct CategoryCellModel: CustomCellViewData {
-    var reuseIdentifier: String = "CategoryCell"
-    let title: String?
-    let productType: ProductType?
-    let productModel: ProductModelProtocol?
-    let footer: String?
-}
-
-struct ProductCellModel: CustomCellViewData {
-    var reuseIdentifier: String = "ProductCell"
-    let title: String?
-    let productType: ProductType?
-    let productModel: ProductModelProtocol?
-}
-
-enum ProductType {
-    case store
-    case chat
-    case movies
-    case common
+struct PokemonCellModel: CustomCellViewData {
+    var reuseIdentifier: String = "PokemonCell"
+    let name: String?
     
-    var value: String {
-        switch self {
-        case .store:
-            return "mistiendas"
-        case .chat:
-            return "mischats"
-        case .movies:
-            return "mispeliculas"
-        case .common:
-            return ""
-        }
+    init(from pokemonResult: PokemonResult) {
+        self.name = pokemonResult.name?.capitalized
     }
 }
-
 
 struct TransverseSearcherTableSection {
     let title: String?
@@ -82,16 +55,7 @@ struct PokemonBlock: Decodable {
 
 struct PokemonResult: Decodable {
     let name: String?
-    let sprites: PokemonSprite?
     let url: String?
-}
-
-struct PokemonSprite: Decodable {
-    let frontDefault: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case frontDefault = "front_default"
-    }
 }
 
 struct Pokemon {

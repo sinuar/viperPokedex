@@ -7,12 +7,12 @@
 
 import Foundation
 
-final class TransverseSearcherRemoteDataManager {
+final class PokedexMainRemoteDataManager {
     // MARK: - Protocol properties
-    weak var interactor: TransverseSearcherRemoteDataOutputProtocol?
+    weak var interactor: PokedexRemoteDataOutputProtocol?
 }
 
-extension TransverseSearcherRemoteDataManager: TransverseSearcherRemoteDataInputProtocol {
+extension PokedexMainRemoteDataManager: PokedexMainRemoteDataInputProtocol {
     
     func requestFromSearchBar(_ text: String, handler: @escaping (Result<PokemonBlock, Error>) -> Void) {
         let service: ServiceAPI = ServiceAPI(session: URLSession.shared)
@@ -54,19 +54,5 @@ extension TransverseSearcherRemoteDataManager: TransverseSearcherRemoteDataInput
         } catch {
             handler(.failure(ServiceError.parsingData))
         }
-    }
-    
-    private var transverseSearcherEndpoint: String {
-        // TODO: Check endpoint, it might change in the future
-        return ""
-    }
-    
-    private func getServiceState(with error: NSError) -> ServiceState {
-        error.code == .zero ? .success : .failure
-    }
-    
-    private enum ServiceState {
-        case success
-        case failure
     }
 }

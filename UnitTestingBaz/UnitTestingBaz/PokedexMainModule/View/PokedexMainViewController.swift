@@ -7,18 +7,18 @@
 
 import UIKit
 
-final class TransverseSearcherViewController: UIViewController {
+final class PokedexMainViewController: UIViewController {
     // MARK: - Protocol properties
     
-    var presenter: TransverseSearcherPresenterProtocol?
-    private typealias Constants = TransverseSearcherConstants
+    var presenter: PokedexMainPresenterProtocol?
+    private typealias Constants = PokedexMainConstants
     
     // MARK: - Private properties
     let tableView: UITableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.willSearch(text: "someText")
+        presenter?.willFetchPokemons(text: "someText")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +55,8 @@ final class TransverseSearcherViewController: UIViewController {
     }
     
     private func registerCells() {
-        tableView.register(SuggestedFieldCell.self, forCellReuseIdentifier: SuggestedFieldCell.cellIdentifier)
+        tableView.register(PokedexSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: PokedexSectionHeaderView.reuseIdentifier)
+        tableView.register(PokemonCell.self, forCellReuseIdentifier: PokemonCell.cellIdentifier)
     }
     
     @objc private func closeView() {
@@ -63,42 +64,54 @@ final class TransverseSearcherViewController: UIViewController {
     }
 }
 
-extension TransverseSearcherViewController: TransverseSearcherViewControllerProtocol {
+extension PokedexMainViewController: PokedexMainViewControllerProtocol {
     func reloadInformation() {
-        print("reload")
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 
-extension TransverseSearcherViewController: UITableViewDelegate {
+extension PokedexMainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         64
     }
-}
-
-extension TransverseSearcherViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        presenter?.sections.count ?? .zero
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didSelectRowAt(indexPath)
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        52
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView: PokedexSectionHeaderView = tableView.dequeueReusableHeaderFooterView(withIdentifier: PokedexSectionHeaderView.reuseIdentifier) as? PokedexSectionHeaderView else { return nil }
+        headerView.setup()
+        return headerView
+    }
+}
+
+extension PokedexMainViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.sections[section]?.items.count ?? .zero
+        presenter?.model?.count ?? .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let currentCellData: CustomCellViewData =  presenter?.sections[indexPath.section]?.items[indexPath.row],
-              let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: currentCellData.reuseIdentifier) else {
-                  let defaultCell: UITableViewCell = UITableViewCell(style: .default, reuseIdentifier: SuggestedFieldCell.cellIdentifier)
-                  return defaultCell
-              }
-        (cell as? ConfigurableCell)?.setup(with: currentCellData)
-        (cell as? SuggestedFieldCell)?.delegate = self
+        
+        guard let cell: PokemonCell = tableView.dequeueReusableCell(withIdentifier: PokemonCell.cellIdentifier, for: indexPath) as? PokemonCell,
+              let cellData: PokemonCellModel = presenter?.model?[indexPath.row]
+        else { return UITableViewCell() }
+        
+        cell.setup(with: cellData)
         return cell
     }
     
     
 }
 
-extension TransverseSearcherViewController: SuggestedFieldCellDelegate {
+extension PokedexMainViewController: PokemonCellDelegate {
     func somethingTheCellShouldDo() {
         print("The view launches a functionality that the cell can't do itself")
     }

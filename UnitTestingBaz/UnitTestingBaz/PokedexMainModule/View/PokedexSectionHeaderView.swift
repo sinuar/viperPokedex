@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TransverseSearcherSectionHeaderView: UITableViewHeaderFooterView {
+class PokedexSectionHeaderView: UITableViewHeaderFooterView {
     
     // MARK: - Properties
     
@@ -41,7 +41,7 @@ class TransverseSearcherSectionHeaderView: UITableViewHeaderFooterView {
     
     // MARK: Methods
     
-    func setup(for section: TransverseSearcherTableSection) {
-        titleLabel.text = section.title
+    func setup() {
+        titleLabel.text = "Pokedex List"
     }
 }

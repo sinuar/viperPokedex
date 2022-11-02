@@ -7,16 +7,16 @@
 
 import UIKit
 
-final class TransverseSearcherRouter {
+final class PokedexMainRouter {
     // MARK: - Properties
-    var view: TransverseSearcherViewControllerProtocol?
-    var interactor: (TransverseSearcherInteractorInputProtocol & TransverseSearcherRemoteDataOutputProtocol)?
-    var presenter: (TransverseSearcherPresenterProtocol & TransverseSearcherInteractorOutputProtocol)?
-    var router: TransverseSearcherRouterProtocol?
-    var remoteData: TransverseSearcherRemoteDataInputProtocol?
+    var view: PokedexMainViewControllerProtocol?
+    var interactor: (PokedexMainInteractorInputProtocol & PokedexRemoteDataOutputProtocol)?
+    var presenter: (PokedexMainPresenterProtocol & PokedexMainInteractorOutputProtocol)?
+    var router: PokedexMainRouterProtocol?
+    var remoteData: PokedexMainRemoteDataInputProtocol?
 }
 
-extension TransverseSearcherRouter: TransverseSearcherRouterProtocol {
+extension PokedexMainRouter: PokedexMainRouterProtocol {
     
     func createTransverseSearcherModule() -> UINavigationController {
         buildModuleComponents()
@@ -28,23 +28,25 @@ extension TransverseSearcherRouter: TransverseSearcherRouterProtocol {
         return navigationController
     }
     
-    func popViewController(from view: TransverseSearcherViewControllerProtocol) {
+    func popViewController(from view: PokedexMainViewControllerProtocol) {
         guard let viewController: UIViewController = view as? UIViewController else { return }
         viewController.navigationController?.popViewController(animated: true)
     }
     
-    func launchCategoryModule(with categoriesModel: [CategoryCellModel]) {
+    func presentPokemonDetail(named pokemonNake: String) {
         guard let viewController: UIViewController = self.view as? UIViewController else { return }
-        // Launch detail module
+        let detailRouter = PokedexDetailRouter()
+        let vc = detailRouter.createPokedexDetailModule()
+        viewController.navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - Private methods
     
     private func buildModuleComponents() {
-        view = TransverseSearcherViewController()
-        interactor = TransverseSearcherInteractor()
-        presenter = TransverseSearcherPresenter()
-        remoteData = TransverseSearcherRemoteDataManager()
+        view = PokedexMainViewController()
+        interactor = PokedexMainInteractor()
+        presenter = PokedexMainPresenter()
+        remoteData = PokedexMainRemoteDataManager()
         router = self
     }
     
