@@ -11,14 +11,15 @@ final class PokedexMainViewController: UIViewController {
     // MARK: - Protocol properties
     
     var presenter: PokedexMainPresenterProtocol?
-    private typealias Constants = PokedexMainConstants
     
     // MARK: - Private properties
-    let tableView: UITableView = UITableView()
+    private let tableView: UITableView = UITableView()
+    private var pokemonList: [PokemonCellModel] = []
+    private typealias Constants = PokedexMainConstants
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.willFetchPokemons(text: "someText")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,6 +28,7 @@ final class PokedexMainViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
         registerCells()
+        presenter?.willFetchPokemons()
     }
     
     // MARK: - Private methods
@@ -42,9 +44,11 @@ final class PokedexMainViewController: UIViewController {
     private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
+        tableView.separatorStyle = .none
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Constants.borderPadding),
@@ -70,11 +74,21 @@ extension PokedexMainViewController: PokedexMainViewControllerProtocol {
             self.tableView.reloadData()
         }
     }
+    
+    func fillPokemonList() {
+        presenter?.model?.forEach { pokemon in
+            DispatchQueue.main.async {
+                self.pokemonList.append(PokemonCellModel(from: pokemon))
+            }
+            
+        }
+        presenter?.reloadSections()
+    }
 }
 
 extension PokedexMainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        64
+        tableView.estimatedRowHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -95,25 +109,29 @@ extension PokedexMainViewController: UITableViewDelegate {
 extension PokedexMainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.model?.count ?? .zero
+        presenter?.totalPokemonCount ?? .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell: PokemonCell = tableView.dequeueReusableCell(withIdentifier: PokemonCell.cellIdentifier, for: indexPath) as? PokemonCell,
-              let cellData: PokemonCellModel = presenter?.model?[indexPath.row]
-        else { return UITableViewCell() }
-        
-        cell.setup(with: cellData)
+        guard let cell: PokemonCell = tableView.dequeueReusableCell(withIdentifier: PokemonCell.cellIdentifier, for: indexPath) as? PokemonCell else { return UITableViewCell() }
+        if presenter?.isLoadingCell(for: indexPath) ?? false {
+            cell.setup(with: .none)
+        } else {
+            let cellData: PokemonCellModel = pokemonList[indexPath.row]
+            cell.setup(with: cellData)
+        }
         return cell
     }
-    
-    
+}
+
+extension PokedexMainViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        presenter?.shouldPrefetch(at: indexPaths)
+    }
 }
 
 extension PokedexMainViewController: PokemonCellDelegate {
     func somethingTheCellShouldDo() {
-        print("The view launches a functionality that the cell can't do itself")
     }
 }
 

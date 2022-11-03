@@ -41,7 +41,6 @@ class ServiceAPI {
         let request = endpoint.request
         let task = session.performDataTask(with: request) { (data, response, error) in
             if let error: Error = error {
-                debugPrint("error", error)
                 callback(.failure(error))
                 return
             }

@@ -18,6 +18,7 @@ final class PokedexDetailInteractor {
 
 extension PokedexDetailInteractor: PokedexDetailInteractorInputProtocol {
     
+    
 }
 
 extension PokedexDetailInteractor: PokedexDetailRemoteDataOutputProtocol {

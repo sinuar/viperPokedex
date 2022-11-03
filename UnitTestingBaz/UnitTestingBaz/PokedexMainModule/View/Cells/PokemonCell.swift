@@ -11,7 +11,7 @@ protocol PokemonCellDelegate: AnyObject {
      func somethingTheCellShouldDo()
 }
 
-final class PokemonCell: UITableViewCell, ConfigurableCell {
+final class PokemonCell: UITableViewCell {
     
     // MARK: - Properties
     weak var delegate: PokemonCellDelegate?
@@ -20,7 +20,9 @@ final class PokemonCell: UITableViewCell, ConfigurableCell {
     
     // MARK: - Private properties
     private var name: UILabel = UILabel()
+    private var icon: UIImageView = UIImageView()
     private var innerContentView: UIView = UIView()
+    private let cellHeight: CGFloat = 24
     private typealias Constants = PokedexMainConstants
     
     // MARK: - Initializers
@@ -28,8 +30,8 @@ final class PokemonCell: UITableViewCell, ConfigurableCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
-        setupInnerContentView()
         setupName()
+        setupIcon()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,22 +40,27 @@ final class PokemonCell: UITableViewCell, ConfigurableCell {
     }
     
     // MARK: - Protocol methods
-    func setup(with data: CustomCellViewData) {
-        guard let model: PokemonCellModel = data as? PokemonCellModel else { return }
+    func setup(with data: PokemonCellModel?) {
+        guard let model: PokemonCellModel = data else {
+            name.text = "Loading..."
+            icon.image = UIImage(named: "pokemon_default")
+            return
+        }
         name.text = model.name
+        icon.image = model.icon
     }
     
     // MARK: - Private functions
     
     private func setupLayout() {
-        [name, innerContentView].forEach({
+        [innerContentView, name, icon].forEach({
             $0.translatesAutoresizingMaskIntoConstraints = false
         })
-    }
-    
-    private func setupInnerContentView() {
         contentView.addSubview(innerContentView)
-        contentView.layer.borderWidth = .zero
+        contentView.addSubview(name)
+        contentView.addSubview(icon)
+        
+        innerContentView.heightAnchor.constraint(equalToConstant: cellHeight).isActive = true
         
         NSLayoutConstraint.activate([
             innerContentView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.commonCellPadding),
@@ -61,20 +68,28 @@ final class PokemonCell: UITableViewCell, ConfigurableCell {
             innerContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.commonCellPadding),
             innerContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.commonCellPadding)
         ])
-//        ShadowStyler.setupCellShadow(view: innerContentView)
     }
     
     private func setupName() {
-        innerContentView.addSubview(name)
         NSLayoutConstraint.activate([
-            name.topAnchor.constraint(equalTo: innerContentView.topAnchor),
-            name.leadingAnchor.constraint(equalTo: innerContentView.leadingAnchor, constant: Constants.commonCellPadding),
-            name.bottomAnchor.constraint(equalTo: innerContentView.bottomAnchor),
-            name.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor, constant: -Constants.commonCellPadding),
+            name.topAnchor.constraint(equalTo: contentView.topAnchor),
+            name.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: Constants.commonCellPadding),
+            name.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            name.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.commonCellPadding)
         ])
         
         name.font = .systemFont(ofSize: 16)
         name.textColor = .gray
+    }
+    
+    private func setupIcon() {
+        NSLayoutConstraint.activate([
+            icon.topAnchor.constraint(equalTo: contentView.topAnchor),
+            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            icon.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            icon.widthAnchor.constraint(equalTo: icon.heightAnchor)
+        ])
+        icon.sizeToFit()
     }
 }
 

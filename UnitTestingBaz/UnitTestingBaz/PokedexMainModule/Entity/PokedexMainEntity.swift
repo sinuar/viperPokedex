@@ -15,62 +15,54 @@ protocol ConfigurableCell {
     func setup(with data: CustomCellViewData)
 }
 
-struct RecentlySearchedCellModel: CustomCellViewData {
-    var reuseIdentifier: String = "RecentlySearchedCell"
-    let title: String?
-    var hasTopSeparator: Bool?
-}
-
-struct SuggestedFieldCellModel: CustomCellViewData {
-    var reuseIdentifier: String = "SuggestedFieldCell"
-    let title: String?
-    let icon: UIImage
-}
-
 struct PokemonCellModel: CustomCellViewData {
     var reuseIdentifier: String = "PokemonCell"
     let name: String?
+    let icon: UIImage?
     
-    init(from pokemonResult: PokemonResult) {
-        self.name = pokemonResult.name?.capitalized
+    init(from pokemon: Pokemon) {
+        self.name = pokemon.name.capitalized
+        self.icon = UIImage(data: pokemon.frontImageData)
     }
 }
 
-struct TransverseSearcherTableSection {
-    let title: String?
-    let accesibilityIdentifier: String?
-    let items: [CustomCellViewData]
-}
 
-// MARK: - Pokeomon List
+// MARK: - Pokeomon Block
 
 struct PokemonBlock: Decodable {
     let count: Int?
     let next: String?
     let previous: String?
-    let results: [PokemonResult]?
+    let results: [PokemonBlockResult]?
 }
 
 // MARK: - Pokemon Result
 
-struct PokemonResult: Decodable {
+struct PokemonBlockResult: Decodable {
     let name: String?
     let url: String?
 }
 
-struct Pokemon {
+struct PokemonDetail: Decodable {
     let name: String
+    let sprites: PokemonSprites
 }
 
-struct GetTransverseSearchResponse: Decodable {
-    
-    let message, folio: String?
-    let result: SearchResult?
+struct PokemonSprites: Decodable {
+    let frontDefault: String
     
     enum CodingKeys: String, CodingKey {
-        case message = "mensaje"
-        case folio
-        case result = "resultado"
+        case frontDefault = "front_default"
+    }
+}
+
+struct Pokemon {
+    let name: String
+    let frontImageData: Data
+    
+    init(from detail: PokemonDetail, imageData: Data) {
+        self.name = detail.name
+        self.frontImageData = imageData
     }
 }
 
