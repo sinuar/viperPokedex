@@ -16,7 +16,6 @@ final class PokedexMainInteractor {
     
     // MARK: - Private properties
     private var pokemonList: [Pokemon] = []
-    private let dispatchGroup: DispatchGroup = DispatchGroup()
 }
 
 extension PokedexMainInteractor: PokedexMainInteractorInputProtocol {
@@ -25,7 +24,6 @@ extension PokedexMainInteractor: PokedexMainInteractorInputProtocol {
             switch result {
             case .success(let pokemonBlock):
                 self?.presenter?.onReceivedData(with: pokemonBlock)
-                self?.handleSuccessfulBlockRequest()
             case .failure(let error):
                 print(error)
             }
@@ -34,7 +32,7 @@ extension PokedexMainInteractor: PokedexMainInteractorInputProtocol {
     }
     
     func fetchDetailFrom(pokemonName: String) {
-        dispatchGroup.enter()
+        Dispatch
         remoteData?.requestPokemon(pokemonName, handler: { (result: Result<PokemonDetail, Error>) in
             switch result {
             case .success(let pokemon):
@@ -44,15 +42,6 @@ extension PokedexMainInteractor: PokedexMainInteractorInputProtocol {
             }
         })
     }
-    
-//    let imageURL: URL = URL(string: pokemon.sprites.frontDefault) ?? URL(fileURLWithPath: "")
-//    do {
-//        let imageData: Data = try Data(contentsOf: imageURL)
-//        self.pokemonList.append(Pokemon(from: pokemon, imageData: imageData))
-//        self.dispatchGroup.leave()
-//    } catch {
-//        print("Hubo un error")
-//    }
     
     private func getImageDataFrom(urlString: String) -> Data? {
         guard let imageUrl: URL = URL(string: urlString) else {
@@ -70,14 +59,7 @@ extension PokedexMainInteractor: PokedexMainInteractorInputProtocol {
         guard let imageData: Data = self.getImageDataFrom(urlString: pokemon.sprites.frontDefault)
         else { return }
         self.pokemonList.append(Pokemon(from: pokemon, imageData: imageData))
-        self.dispatchGroup.leave()
-    }
-    
-    private func handleSuccessfulBlockRequest() {
-        self.dispatchGroup.notify(queue: DispatchQueue.global(qos: .userInteractive)) {
-            let pokemons: [Pokemon] = self.pokemonList
-            self.presenter?.onReceivedPokemons(pokemons)
-        }
+        self.presenter?.onReceivedPokemon(Pokemon(from: pokemon, imageData: imageData))
     }
 }
 

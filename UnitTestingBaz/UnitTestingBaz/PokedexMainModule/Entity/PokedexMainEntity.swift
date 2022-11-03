@@ -44,6 +44,7 @@ struct PokemonBlockResult: Decodable {
 }
 
 struct PokemonDetail: Decodable {
+    let id: Int
     let name: String
     let sprites: PokemonSprites
 }
@@ -57,10 +58,12 @@ struct PokemonSprites: Decodable {
 }
 
 struct Pokemon {
+    let id: Int
     let name: String
     let frontImageData: Data
     
     init(from detail: PokemonDetail, imageData: Data) {
+        self.id = detail.id
         self.name = detail.name
         self.frontImageData = imageData
     }

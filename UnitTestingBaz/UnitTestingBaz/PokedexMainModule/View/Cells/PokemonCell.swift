@@ -22,7 +22,7 @@ final class PokemonCell: UITableViewCell {
     private var name: UILabel = UILabel()
     private var icon: UIImageView = UIImageView()
     private var innerContentView: UIView = UIView()
-    private let cellHeight: CGFloat = 24
+    private let cellHeight: CGFloat = 96
     private typealias Constants = PokedexMainConstants
     
     // MARK: - Initializers

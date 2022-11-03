@@ -29,7 +29,7 @@ protocol PokedexMainViewControllerProtocol: AnyObject {
 protocol PokedexMainPresenterProtocol: AnyObject {
     var view: PokedexMainViewControllerProtocol? { get set }
     var router: PokedexMainRouterProtocol? { get set }
-    var model: [Pokemon]? { get set }
+    var model: [Pokemon] { get set }
     
     var totalPokemonCount: Int? { get set }
     
@@ -65,7 +65,7 @@ protocol PokedexMainInteractorOutputProtocol: AnyObject {
     var isFetchInProgress: Bool { get set }
     
     func onReceivedData(with pokemonBlock: PokemonBlock)
-    func onReceivedPokemons(_ pokemons: [Pokemon])
+    func onReceivedPokemon(_ pokemons: Pokemon)
 }
 
 // Interactor > RemoteData

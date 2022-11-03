@@ -15,7 +15,7 @@ final class PokedexMainPresenter {
     var interactor: PokedexMainInteractorInputProtocol?
     var router: PokedexMainRouterProtocol?
     
-    var model: [Pokemon]?
+    var model: [Pokemon] = []
     var isFetchInProgress: Bool = false
     var totalPokemonCount: Int?
     
@@ -28,8 +28,10 @@ final class PokedexMainPresenter {
 extension PokedexMainPresenter: PokedexMainPresenterProtocol {
     
     func didSelectRowAt(_ indexPath: IndexPath) {
-        guard let pokemonName: String = model?[indexPath.row].name else { return }
+        let pokemonName: String = model[indexPath.row].name
         router?.presentPokemonDetail(named: pokemonName)
+        print("selected pokemon", pokemonName)
+        print("Id", model[indexPath.row].id)
     }
     
     func willPopController(from view: PokedexMainViewControllerProtocol) {
@@ -66,10 +68,8 @@ extension PokedexMainPresenter: PokedexMainPresenterProtocol {
     }
     
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        guard let currentCount: Int = model?.count else { return false }
-        let shouldFetchNextPokemonBlock: Bool = indexPath.row >= currentCount
-//        debugPrint(indexPath.row)
-//        debugPrint(shouldFetchNextPokemonBlock)
+        let currentCount: Int = model.count
+        let shouldFetchNextPokemonBlock: Bool = indexPath.row >= currentCount - 1
         return shouldFetchNextPokemonBlock
         
     }
@@ -87,8 +87,8 @@ extension PokedexMainPresenter: PokedexMainInteractorOutputProtocol {
         }
     }
     
-    func onReceivedPokemons(_ pokemons: [Pokemon]) {
-        self.model = pokemons
+    func onReceivedPokemon(_ pokemon: Pokemon) {
+        self.model.append(pokemon)
         view?.fillPokemonList()
     }
 }

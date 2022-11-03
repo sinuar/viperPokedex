@@ -19,7 +19,7 @@ final class PokedexMainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        presenter?.willFetchPokemons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,7 +28,6 @@ final class PokedexMainViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
         registerCells()
-        presenter?.willFetchPokemons()
     }
     
     // MARK: - Private methods
@@ -76,13 +75,11 @@ extension PokedexMainViewController: PokedexMainViewControllerProtocol {
     }
     
     func fillPokemonList() {
-        presenter?.model?.forEach { pokemon in
-            DispatchQueue.main.async {
-                self.pokemonList.append(PokemonCellModel(from: pokemon))
-            }
-            
+        DispatchQueue.main.async {
+            guard let lastPokemon: Pokemon = self.presenter?.model.last else { return }
+            self.pokemonList.append(PokemonCellModel(from: lastPokemon))
         }
-        presenter?.reloadSections()
+        self.presenter?.reloadSections()
     }
 }
 
@@ -109,7 +106,14 @@ extension PokedexMainViewController: UITableViewDelegate {
 extension PokedexMainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter?.totalPokemonCount ?? .zero
+        guard let count: Int = presenter?.model.count else {
+            return .zero
+        }
+        let displayableCount: Int = count == presenter?.totalPokemonCount
+        ? presenter?.totalPokemonCount ?? .zero
+        : count + 20
+        return displayableCount
+//        presenter?.totalPokemonCount ?? .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
