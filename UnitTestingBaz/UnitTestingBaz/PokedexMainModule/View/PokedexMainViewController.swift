@@ -11,10 +11,10 @@ final class PokedexMainViewController: UIViewController {
     // MARK: - Protocol properties
     
     var presenter: PokedexMainPresenterProtocol?
+    var pokemonList: [PokemonCellModel] = []
     
     // MARK: - Private properties
     private let tableView: UITableView = UITableView()
-    private var pokemonList: [PokemonCellModel] = []
     private typealias Constants = PokedexMainConstants
     
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ final class PokedexMainViewController: UIViewController {
     
     private func setupNavigationBar() {
         title = "Pokemon"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: Constants.closeButtonIcon,
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: .add,
                                                             style: .plain, target: self,
                                                             action: #selector(closeView))
         navigationItem.rightBarButtonItem?.tintColor = Constants.purplueBarColor
@@ -78,6 +78,9 @@ extension PokedexMainViewController: PokedexMainViewControllerProtocol {
         DispatchQueue.main.async {
             guard let lastPokemon: Pokemon = self.presenter?.model.last else { return }
             self.pokemonList.append(PokemonCellModel(from: lastPokemon))
+            self.pokemonList = self.pokemonList.sorted { previous, next in
+                return previous.id < next.id
+            }
         }
         self.presenter?.reloadSections()
     }
@@ -113,7 +116,6 @@ extension PokedexMainViewController: UITableViewDataSource {
         ? presenter?.totalPokemonCount ?? .zero
         : count + 20
         return displayableCount
-//        presenter?.totalPokemonCount ?? .zero
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

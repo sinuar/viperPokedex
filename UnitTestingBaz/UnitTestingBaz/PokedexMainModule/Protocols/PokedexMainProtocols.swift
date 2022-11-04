@@ -21,6 +21,8 @@ protocol PokedexMainRouterProtocol {
 protocol PokedexMainViewControllerProtocol: AnyObject {
     var presenter: PokedexMainPresenterProtocol? { get set }
     
+    var pokemonList: [PokemonCellModel] { get set }
+    
     func reloadInformation()
     func fillPokemonList()
 }
@@ -40,7 +42,6 @@ protocol PokedexMainPresenterProtocol: AnyObject {
     func reloadSections()
     func willPopController(from view: PokedexMainViewControllerProtocol)
     func willFetchPokemons()
-    func save(lastSearch: String?)
 }
 
 // Interactor > Presenter

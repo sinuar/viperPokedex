@@ -28,10 +28,10 @@ final class PokedexMainPresenter {
 extension PokedexMainPresenter: PokedexMainPresenterProtocol {
     
     func didSelectRowAt(_ indexPath: IndexPath) {
-        let pokemonName: String = model[indexPath.row].name
+        let pokemonName: String = view?.pokemonList[indexPath.row].name ?? ""
         router?.presentPokemonDetail(named: pokemonName)
         print("selected pokemon", pokemonName)
-        print("Id", model[indexPath.row].id)
+        print("Id", view?.pokemonList[indexPath.row].id)
     }
     
     func willPopController(from view: PokedexMainViewControllerProtocol) {
@@ -46,19 +46,6 @@ extension PokedexMainPresenter: PokedexMainPresenterProtocol {
         interactor?.fetchPokemonBlock()
     }
     
-    func save(lastSearch: String?) {
-        guard let searchedValue: String = lastSearch else { return }
-        let userDefaults: UserDefaults = UserDefaults.standard
-        var recentSearches: [String] = userDefaults.object(forKey: "RecentSearches") as? [String] ?? []
-        
-        if recentSearches.count > 2 {
-            recentSearches = recentSearches.dropLast()
-        }
-        guard searchedValue != recentSearches.first else { return }
-        recentSearches.insert(searchedValue, at: .zero)
-        UserDefaults.standard.set(recentSearches, forKey: "RecentSearches")
-    }
-    
     func shouldPrefetch(at indexPaths: [IndexPath]) {
         if indexPaths.contains(where: isLoadingCell) {
             guard !isFetchInProgress else { return }
@@ -71,7 +58,6 @@ extension PokedexMainPresenter: PokedexMainPresenterProtocol {
         let currentCount: Int = model.count
         let shouldFetchNextPokemonBlock: Bool = indexPath.row >= currentCount - 1
         return shouldFetchNextPokemonBlock
-        
     }
 }
 

@@ -9,7 +9,7 @@ import UIKit
 
 enum PokedexMainConstants {
     
-    static let closeButtonIcon: UIImage = UIImage()
+    static let pokeballIcon: UIImage = UIImage(named: "pokeball") ?? UIImage()
     static let purplueBarColor: UIColor = .lightGray
     static func getIcon(_ iconName: IconName) -> UIImage {
         let image: UIImage = UIImage(named: iconName.rawValue) ?? UIImage()
@@ -55,7 +55,7 @@ enum PokedexMainConstants {
     static let searchIconSize: CGFloat = 24.0
     
     static func getClearIcon() -> UIImage {
-        let clearIcon: UIImage = PokedexMainConstants.closeButtonIcon.withRenderingMode(.alwaysTemplate)
+        let clearIcon: UIImage = PokedexMainConstants.pokeballIcon.withRenderingMode(.alwaysTemplate)
         clearIcon.accessibilityIdentifier = "clearIcon"
         return clearIcon
     }

@@ -17,10 +17,12 @@ protocol ConfigurableCell {
 
 struct PokemonCellModel: CustomCellViewData {
     var reuseIdentifier: String = "PokemonCell"
+    let id: Int
     let name: String?
     let icon: UIImage?
     
     init(from pokemon: Pokemon) {
+        self.id = pokemon.id
         self.name = pokemon.name.capitalized
         self.icon = UIImage(data: pokemon.frontImageData)
     }

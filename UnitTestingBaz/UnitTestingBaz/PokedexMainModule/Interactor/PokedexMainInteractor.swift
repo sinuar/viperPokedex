@@ -32,7 +32,6 @@ extension PokedexMainInteractor: PokedexMainInteractorInputProtocol {
     }
     
     func fetchDetailFrom(pokemonName: String) {
-        Dispatch
         remoteData?.requestPokemon(pokemonName, handler: { (result: Result<PokemonDetail, Error>) in
             switch result {
             case .success(let pokemon):
