@@ -8,6 +8,7 @@
 import UIKit
 
 final class PokedexMainViewController: UIViewController {
+    
     // MARK: - Protocol properties
     
     var presenter: PokedexMainPresenterProtocol?
@@ -34,10 +35,6 @@ final class PokedexMainViewController: UIViewController {
     
     private func setupNavigationBar() {
         title = "Pokemon"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: .add,
-                                                            style: .plain, target: self,
-                                                            action: #selector(closeView))
-        navigationItem.rightBarButtonItem?.tintColor = Constants.purplueBarColor
     }
     
     private func setupTableView() {
@@ -140,4 +137,3 @@ extension PokedexMainViewController: PokemonCellDelegate {
     func somethingTheCellShouldDo() {
     }
 }
-

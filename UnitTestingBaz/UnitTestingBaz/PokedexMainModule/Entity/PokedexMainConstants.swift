@@ -33,9 +33,9 @@ enum PokedexMainConstants {
     static let commonCornerRadius: CGFloat = 8.0
     static let commonCellBorderWidth: CGFloat = 0.05
     static let commonCellPadding: CGFloat = 4.0
-    static let commonCellShadowOffset: CGSize = CGSize(width: .zero, height: 1.5)
-    static let commonCellShadowOpacity: Float = 0.15
-    static let commonCellShadowColor: CGColor = UIColor.gray.withAlphaComponent(0.6).cgColor
+    static let commonCellShadowOffset: CGSize = CGSize(width: .zero, height: 4)
+    static let commonCellShadowOpacity: Float = 0.2
+    static let commonCellShadowColor: CGColor = UIColor.gray.withAlphaComponent(1.0).cgColor
     static let commonCellShadowRadius: CGFloat = 2.5
     static let headerHeight: CGFloat = 48.0
     static let centerYHeaderHeightFactor = 0.7
